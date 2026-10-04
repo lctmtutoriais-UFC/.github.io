@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparação de Estruturas + Docking Molecular (AutoDock Vina) — LCTMBio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="page-header">
+  <div class="wrap">
+    <a class="back-link" href="../index.html#protocolos">← Voltar para protocolos</a>
+    <h1>Preparação de Estruturas + Docking Molecular — AutoDock Vina</h1>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <ol class="steps">
+      <li>
+        <h3>Obtenção e limpeza da estrutura (PDB)</h3>
+        <p>Baixar as coordenadas da proteína em formato legacy PDB a partir do Protein Data Bank.</p>
+        <ul>
+          <li>Abrir o arquivo em um editor de texto (ex: Notepad++) e verificar resíduos/átomos ausentes.</li>
+          <li>Se houver partes não resolvidas, modelar com <a href="https://swissmodel.expasy.org/" target="_blank" rel="noopener">SWISS-MODEL</a> ou <a href="https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb" target="_blank" rel="noopener">ColabFold</a>.</li>
+          <li>Remover ligantes, águas e demais moléculas do protocolo de cristalografia que não são de interesse (Notepad++, Discovery Studio ou PyMOL).</li>
+          <li>Usar a estrutura processada como entrada no <a href="https://open.playmolecule.org/" target="_blank" rel="noopener">ProteinPrepare</a> (ou <a href="https://server.poissonboltzmann.org/pdb2pqr" target="_blank" rel="noopener">PDB2PQR</a>) para avaliar estados de protonação (LYS, ARG, HIS, ASP, GLU, CYS) e adicionar hidrogênios faltantes.</li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Preparação no <a href="https://ccsb.scripps.edu/mgltools/downloads/" target="_blank" rel="noopener">MGLTools</a></h3>
+        <p><strong>Ligante</strong></p>
+        <ul>
+          <li><code class="inline">Read Molecule → Ligand → Input → Choose</code> (selecionar a molécula para o AutoDock)</li>
+          <li><code class="inline">Ligand → Torsion Tree → Detect Root</code></li>
+          <li><code class="inline">Ligand → Torsion Tree → Choose Torsion → Done</code></li>
+          <li><code class="inline">Ligand → Output → Save as PDBQT</code></li>
+        </ul>
+        <p><strong>Receptor</strong></p>
+        <ul>
+          <li>Deletar o ligante e abrir o receptor</li>
+          <li><code class="inline">Edit → Hydrogens → Add → Polar Only</code></li>
+          <li><code class="inline">Grid → Macromolecule → Choose</code> (selecionar e salvar)</li>
+          <li><code class="inline">Grid → Grid Box → Spacing = 1</code></li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Execução no <a href="https://vina.scripps.edu/" target="_blank" rel="noopener">AutoDock Vina</a></h3>
+        <p>Tamanho de célula de grade sempre em 1 Å.</p>
+        <pre>vina.exe --config conf.txt --log log.out
+
+vina_split.exe --input nome_arquivo_saida.pdbqt</pre>
+      </li>
+
+      <li>
+        <h3>Análise estrutural no <a href="https://www.pymol.org/" target="_blank" rel="noopener">PyMOL</a></h3>
+        <ul>
+          <li>Abrir o PDB do receptor no PyMOL</li>
+          <li>Abrir os ligantes gerados pelo <code class="inline">vina_split</code></li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Rescoring consenso</h3>
+        <p>Recomenda-se um rescoring consenso, comparando poses entre diferentes funções de scoring, para dar maior robustez à análise final. Referências: doi:10.1039/d1ra05785e, doi:10.1016/j.jmgm.2021.108023.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © LCTMBio · UFC — <a href="https://github.com/lctmtutoriais-UFC">github.com/lctmtutoriais-UFC</a>
+  </div>
+</footer>
+
+</body>
+</html>
