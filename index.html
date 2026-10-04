@@ -74,18 +74,18 @@
 
   .lines{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px;
+    grid-template-columns:1fr;
+    gap:18px;
   }
-  @media(max-width:600px){.lines{grid-template-columns:1fr;}}
   .line-item{
     border:1px solid var(--line);
     background:var(--bg-panel);
-    padding:18px 20px;
+    padding:20px 24px;
     border-radius:3px;
   }
   .line-item h3{font-size:1.05rem;color:var(--ink);}
-  .line-item p{margin:0;color:var(--ink-dim);font-size:.93rem;}
+  .line-item p{margin:0 0 8px;color:var(--ink-dim);font-size:.93rem;}
+  .line-item p:last-child{margin-bottom:0;}
 
   .pub-placeholder{
     color:var(--ink-dim);
