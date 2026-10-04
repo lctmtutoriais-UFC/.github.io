@@ -1,0 +1,79 @@
+﻿					COMANDOS GROMACS
+source /usr/local/gromacs/bin/GMXRC
+
+I) gmx pdb2gmx -ignh -f rank_001_prep_charmmGui.pdb -o processed.gro
+
+II) gmx editconf -f processed.gro -o newbox.gro -c -d 1.0 -bt cubic
+
+III) gmx solvate -cp newbox.gro -cs spc216.gro -o solv.gro -p topol.top
+
+IV) gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
+
+V) gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname 	SOD -nname CLA -neutral -conc 0.15
+selecione 13
+
+VI) gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr -maxwarn 1
+
+VII) gmx mdrun -v -deffnm em    
+	---- GRÁFICO PORTENTIAL 
+		 gmx energy -f em.edr -o potential.xvg  (PLOTAR GRÁFICO DE ENERGIA POTENCIAL)
+		 10 0
+
+	gmx trjconv -s em.tpr -f em.trr -o em.pdb -dump 1379 (VALOR DA ÚLTIMA FRAME) (EXTRAIR ÚLTIMA FRAME - )
+
+VIII) gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr -maxwarn 1
+
+IX) gmx mdrun -deffnm nvt
+	---- GRÁFICO TEMPERATURE 
+		 gmx energy -f nvt.edr -o temperature.xvg (plotar a variação de temperatura da simulação que acabou de rodar)
+		 16 0 		 
+		 
+	gmx trjconv -s nvt.tpr -f nvt.xtc -o nvt.pdb -dump 500000 (última frame da simulação)
+	
+	
+X) gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -t nvt.cpt -p topol.top -o npt.tpr -maxwarn 1
+
+XI) gmx mdrun -deffnm npt
+	---- GRÁFICOS PRESSURE E DENSITY
+		 gmx energy -f npt.edr -o pressure.xvg  (plotar gráfico de pressão)
+		 18 0 
+		 
+		 gmx energy -f npt.edr -o density.xvg  (plotar gráfico de )
+		 24 0
+	
+	gmx trjconv -s npt.tpr -f npt.xtc -o npt.pdb -dump 500000 (ùltima fram da última simulação)
+	
+XII) gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md_0_100.tpr -maxwarn 1 ( é no arquivo md.mdp que se ajusta a quantidade de steps e o tempo da simulação 500000 steps = 1 ns)
+
+*ALTERA MD.MDP PARA 100NS* 500000 x 100
+
+XIII) nohup gmx mdrun -deffnm md_0_100 -nb gpu (último comando - para rodar a dinâmica molecular em si)
+
+gmx trjconv -s em.tpr -f em.trr -o em.pdb -dump 5000
+
+---------------------------------------------
+--
+gmx trjconv -s md_0_100.tpr -f md_0_100.xtc -o md_0_100_whole.xtc -pbc whole
+gmx trjconv -s md_0_100.tpr -f md_0_100_whole.xtc -o md_0_100_whole_nojump.xtc -pbc nojump
+gmx trjconv -s md_0_100.tpr -f md_0_100_whole_nojump.xtc -o md_0_100_whole_nojump_center.xtc -center -pbc mol -ur compact
+##gmx trjconv -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o md_0_100_whole_nojump_center_A_B.xtc -center -pbc mol -ur compact
+gmx rms -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsd_proteinALL.xvg -tu ns
+gmx rms -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsd_proteinCALPHA.xvg -tu ns
+--
+gmx rmsdist -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsdist_proteinAll.xvg
+gmx rmsdist -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsdist_proteinCALPHA.xvg
+--
+gmx rmsf -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsf_proteinALL_res.xvg -res
+gmx rmsf -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o rmsf_proteinCALPHA_res.xvg -res
+--
+gmx trjconv -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc -o start_100ns.pdb -dump 100000
+##gmx trjconv -s md_0_100.tpr -f md_0_100_whole_nojump_center_A_B.xtc -o start_0ns_AB.pdb -dump 0
+--
+gmx make_ndx -f step5_input.gro -n index.ndx
+ri 1-255
+ri 256-735
+
+gmx hbond -f md_0_100_whole_nojump_center.xtc -s md_0_100.tpr -num hbnum.xvg -hbm hb_matrix -n index.ndx
+--
+gmx gyrate -s md_0_100.tpr -f md_0_100_whole_nojump_center.xtc-o gyrate.xvg -tu ns
+
