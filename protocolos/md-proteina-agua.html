@@ -20,7 +20,164 @@
 
 <section>
   <div class="wrap">
-    <p class="pub-placeholder">Protocolo em elaboração — conteúdo em breve.</p>
+    <p class="protocol-intro">Script de automação (.csh) com todos os comandos abaixo disponível em: <a href="https://github.com/lctmtutoriais-UFC/.github.io/blob/6c4fee6cd3924c6226e7f37ba578ce3f009f3106/Arquivos_Proteina_Proteina-Proteina_Proteina-Peptideo%20-Agua/script.csh" target="_blank" rel="noopener">script.csh</a>.</p>
+
+    <ol class="steps">
+      <li>
+        <h3>I. pdb2gmx — converter PDB em .gro e gerar topologia</h3>
+        <p>Converte o PDB em .gro, cria o <code class="inline">topol.top</code> e pede a escolha do campo de força e do modelo de solvatação.</p>
+        <pre>source /usr/local/gromacs/bin/GMXRC
+
+gmx pdb2gmx -ignh -f rank_001_prep_charmmGui.pdb -o processed.gro</pre>
+        <p>Digitar a opção do campo de força, Enter, depois a opção do modelo de água, Enter (para automatizar, usar <code class="inline">echo</code> antes do comando).</p>
+      </li>
+
+      <li>
+        <h3>II. editconf — caixa de simulação</h3>
+        <p>Escolhe o tamanho e o tipo da caixa de simulação.</p>
+        <pre>gmx editconf -f processed.gro -o newbox.gro -c -d 1.0 -bt cubic</pre>
+      </li>
+
+      <li>
+        <h3>III. solvate — adicionar água</h3>
+        <pre>gmx solvate -cp newbox.gro -cs spc216.gro -o solv.gro -p topol.top</pre>
+      </li>
+
+      <li>
+        <h3>IV. grompp — preparar adição de íons</h3>
+        <pre>gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr</pre>
+      </li>
+
+      <li>
+        <h3>V. genion — adicionar íons</h3>
+        <p>Substitui algumas águas pelos íons, neutralizando o sistema.</p>
+        <pre>gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname SOD -nname CLA -neutral -conc 0.15</pre>
+        <p>Digitar 13, Enter (usar <code class="inline">echo</code> para automatizar).</p>
+      </li>
+
+      <li>
+        <h3>VI–VII. Minimização de energia</h3>
+        <p>Configura (parâmetros em <code class="inline">em.mdp</code>) e roda a minimização de energia.</p>
+        <pre>gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
+gmx mdrun -v -deffnm em
+
+# gráfico de energia potencial
+gmx energy -f em.edr -o potential.xvg
+  # digitar 11 0, Enter — pode variar se o grupo 'potential' não estiver em '11'
+
+# extração da conformação após a minimização
+gmx trjconv -s em.tpr -f em.trr -o em.pdb -dump X
+  # X = valor da última frame da simulação de minimização
+  # digitar 0, Enter (substituir por 1 se não quiser as águas no pdb)</pre>
+      </li>
+
+      <li>
+        <h3>VIII–IX. Equilíbrio NVT</h3>
+        <p>Configura (parâmetros em <code class="inline">nvt.mdp</code>, ajustar <code class="inline">nsteps</code> conforme necessário) e roda o equilíbrio de temperatura.</p>
+        <pre>gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+gmx mdrun -deffnm nvt
+
+# gráfico de temperatura
+gmx energy -f nvt.edr -o temperature.xvg
+  # digitar 16 0, Enter — pode variar se o grupo 'temperature' não estiver em '16'
+
+# extração da conformação após o NVT
+gmx trjconv -s nvt.tpr -f nvt.xtc -o nvt.pdb -dump X
+  # X = tempo em ps da simulação NVT; digitar 0, Enter (ou 1 sem águas)</pre>
+      </li>
+
+      <li>
+        <h3>X–XI. Equilíbrio NPT</h3>
+        <p>Configura (parâmetros em <code class="inline">npt.mdp</code>) e roda o equilíbrio de pressão/densidade.</p>
+        <pre>gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
+gmx mdrun -deffnm npt
+
+# gráficos pressure e density
+gmx energy -f npt.edr -o pressure.xvg
+  # digitar 18 0, Enter — pode variar se 'pressure' não estiver em '18'
+gmx energy -f npt.edr -o density.xvg
+  # digitar 24 0, Enter — pode variar se 'density' não estiver em '24'
+
+# extração da conformação após o NPT
+gmx trjconv -s npt.tpr -f npt.xtc -o npt.pdb -dump X</pre>
+      </li>
+
+      <li>
+        <h3>XII–XIII. Produção da dinâmica molecular</h3>
+        <p>Configura (parâmetros em <code class="inline">md.mdp</code>) e roda a produção. As flags de <code class="inline">mdrun</code> podem variar conforme a máquina usada.</p>
+        <pre>gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md.tpr
+
+nohup gmx mdrun -deffnm md -nb gpu -pin on -ntmpi 1 -ntomp 12</pre>
+      </li>
+    </ol>
+
+    <h2 style="margin-top:50px;">Pós-processamento e análises</h2>
+    <p class="protocol-intro">Comandos aplicados após o fim da produção, sobre a trajetória <code class="inline">md.xtc</code>.</p>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Correção de PBC da trajetória</h3>
+    <pre>gmx trjconv -s md.tpr -f md.xtc -o md_whole.xtc -pbc whole
+  # digitar 0 (ou echo "0" antes do comando)
+gmx trjconv -s md.tpr -f md_whole.xtc -o md_whole_nojump.xtc -pbc nojump
+  # digitar 0
+gmx trjconv -s md.tpr -f md_whole_nojump.xtc -o md_whole_nojump_center.xtc -center -pbc mol -ur compact
+  # digitar 1, Enter, 0, Enter
+gmx trjconv -s md.tpr -f md_whole_nojump_center.xtc -o md_whole_nojump_center_fit.xtc -fit rot+trans
+  # digitar 4, Enter, 1, Enter
+gmx trjconv -s md.tpr -f md_whole_nojump_center_fit.xtc -o md_whole_nojump_center_fit_protOnly.xtc -center -pbc mol -ur compact
+  # digitar 1, Enter, 1, Enter</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Extração de frames específicas</h3>
+    <pre>gmx trjconv -s md.tpr -f md_whole_nojump_center_fit.xtc -o 100ns.pdb -dump 100000
+  # valor após -dump é o tempo de simulação em ps; digitar 0
+gmx trjconv -s md.tpr -f md_whole_nojump_center_fit_protOnly.xtc -o 0ns_protOnly.pdb -dump 0
+  # digitar 1</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">RMSD</h3>
+    <pre>gmx rms -s md.tpr -f md_whole_nojump_center_fit.xtc -o rmsd_proteinALL.xvg -tu ns
+  # digitar 4, Enter, 1, Enter
+gmx rms -s md.tpr -f md_whole_nojump_center_fit.xtc -o rmsd_proteinCALPHA.xvg -tu ns
+  # digitar 4, Enter, 3, Enter</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">RMSF</h3>
+    <pre>gmx rmsf -s md.tpr -f md_whole_nojump_center_fit.xtc -o rmsf_proteinALL_res.xvg -res
+  # digitar 1
+gmx rmsf -s md.tpr -f md_whole_nojump_center_fit.xtc -o rmsf_proteinCALPHA_res.xvg -res
+  # digitar 3</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Rg (raio de giro)</h3>
+    <pre>gmx gyrate -s md.tpr -f md_whole_nojump_center_fit.xtc -o gyrate_complex.xvg -tu ns
+  # digitar 1</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">SASA</h3>
+    <pre>gmx sasa -s md.tpr -f md_whole_nojump_center_fit.xtc -o sasa_protein.xvg -n index.ndx
+  # digitar 1</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">PCA</h3>
+    <pre>gmx covar -s md.tpr -f md_whole_nojump_center_fit.xtc -o eigenval.xvg -v eigenvec.trr -n index.ndx
+  # digitar 4, Enter, 1, Enter
+gmx anaeig -s md.tpr -f md_whole_nojump_center_fit.xtc -v eigenvec.trr -eig eigenval.xvg -2d 2dproj.xvg -first 1 -last 2 -n index.ndx
+  # digitar 4, Enter, 1, Enter
+gmx anaeig -s md.tpr -f md_whole_nojump_center_fit.xtc -v eigenvec.trr -eig eigenval.xvg -extr extreme.pdb -first 1 -last 1 -nframes 30 -n index.ndx
+  # digitar 4, Enter, 1, Enter</pre>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Index para separar cadeias (ex: análise de contato entre cadeias)</h3>
+    <p>Exemplo com duas cadeias separadas (resíduos 1–255 e 256–735) para análise individual e de contatos entre elas.</p>
+    <pre>gmx make_ndx -f solv_ions.gro -n index.ndx
+ri 1-255
+ri 256-735</pre>
+    <p>É possível automatizar essa parte combinando <code class="inline">echo</code>/<code class="inline">printf</code> com <code class="inline">\n</code> antes do comando <code class="inline">gmx</code>.</p>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">HBONDS</h3>
+    <pre>gmx hbond -f md_whole_nojump_center_fit.xtc -s md.tpr -num hbnum.xvg -hbm hb_matrix -n index.ndx</pre>
+    <p>Digitar o número do grupo da cadeia A (1–255), Enter, depois o número do grupo da cadeia B (256–735), Enter. Dependendo da versão do GROMACS, é possível automatizar com <code class="inline">sele</code> direto no comando ou com <code class="inline">echo</code>/<code class="inline">printf</code> + <code class="inline">\n</code>.</p>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Contacts</h3>
+    <pre>gmx mindist -s md.tpr -f md_whole_nojump_center_fit.xtc -n index.ndx -od mindist_protein1_protein2.xvg -on contacts_protein1_protein2.xvg</pre>
+    <p>Digitar o grupo da cadeia A, Enter, cadeia B, Enter (ou <code class="inline">echo "nCadeia A" "nCadeia B"</code> antes do comando).</p>
+
+    <h3 style="margin-top:28px;font-size:1.05rem;">Pairdist</h3>
+    <pre>gmx pairdist -f md_whole_nojump_center_fit.xtc -s md.tpr -n index.ndx -o dist.xvg -ref 'group "chain A"' -sel 'group "chain B"'</pre>
+    <p>Os nomes dentro das aspas precisam ser os grupos criados anteriormente pelo <code class="inline">gmx make_ndx</code> (<code class="inline">ri 1-255</code> e <code class="inline">ri 256-735</code>).</p>
   </div>
 </section>
 
