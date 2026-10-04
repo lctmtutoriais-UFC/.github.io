@@ -7,154 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg: #0C1210;
-    --bg-panel: #121A17;
-    --ink: #E8E7E0;
-    --ink-dim: #9CAAA3;
-    --line: #26332E;
-    --accent: #C98A4B;
-    --accent-dim: #8A6336;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    line-height:1.6;
-  }
-  h1,h2,h3{
-    font-family:'Spectral',serif;
-    font-weight:500;
-    margin:0 0 .4em;
-  }
-  a{color:var(--accent);text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  .wrap{max-width:860px;margin:0 auto;padding:0 24px;}
-
-  header.hero{
-    border-bottom:1px solid var(--line);
-    padding:72px 0 56px;
-  }
-  header.hero p.kicker{
-    color:var(--ink-dim);
-    margin:0 0 10px;
-    font-size:.95rem;
-  }
-  header.hero h1{
-    font-size:2.3rem;
-    max-width:14ch;
-  }
-  header.hero p.desc{
-    max-width:60ch;
-    color:var(--ink-dim);
-    font-size:1.05rem;
-    margin-top:14px;
-  }
-  nav{
-    margin-top:28px;
-    display:flex;
-    gap:22px;
-    flex-wrap:wrap;
-    font-size:.95rem;
-  }
-
-  section{
-    padding:56px 0;
-    border-bottom:1px solid var(--line);
-  }
-  section:last-of-type{border-bottom:none;}
-  section h2{
-    font-size:1.5rem;
-    margin-bottom:26px;
-  }
-
-  .lines{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:18px;
-  }
-  .line-item{
-    border:1px solid var(--line);
-    background:var(--bg-panel);
-    padding:20px 24px;
-    border-radius:3px;
-  }
-  .line-item h3{font-size:1.05rem;color:var(--ink);}
-  .line-item p{margin:0 0 8px;color:var(--ink-dim);font-size:.93rem;}
-  .line-item p:last-child{margin-bottom:0;}
-
-  .pub-placeholder{
-    color:var(--ink-dim);
-    font-size:.95rem;
-    border:1px dashed var(--line);
-    padding:18px 20px;
-    border-radius:3px;
-  }
-
-  .protocol-intro{color:var(--ink-dim);max-width:65ch;}
-
-  ol.steps{
-    list-style:none;
-    counter-reset:step;
-    padding:0;
-    margin:30px 0 0;
-  }
-  ol.steps > li{
-    counter-increment:step;
-    position:relative;
-    padding:0 0 30px 48px;
-    border-left:1px solid var(--line);
-    margin-left:14px;
-  }
-  ol.steps > li:last-child{border-left:1px solid transparent;padding-bottom:0;}
-  ol.steps > li::before{
-    content:counter(step);
-    position:absolute;
-    left:-15px;
-    top:0;
-    width:30px;height:30px;
-    border-radius:50%;
-    background:var(--bg);
-    border:1px solid var(--accent-dim);
-    color:var(--accent);
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.85rem;
-    display:flex;align-items:center;justify-content:center;
-  }
-  ol.steps h3{font-size:1.05rem;margin-bottom:8px;}
-  ol.steps p{margin:0 0 8px;color:var(--ink-dim);font-size:.93rem;}
-  ol.steps ul{margin:8px 0;padding-left:20px;color:var(--ink-dim);font-size:.93rem;}
-  ol.steps ul li{margin-bottom:4px;}
-
-  code, pre{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.85rem;
-  }
-  pre{
-    background:var(--bg);
-    border:1px solid var(--line);
-    padding:12px 14px;
-    border-radius:3px;
-    overflow-x:auto;
-    color:var(--ink);
-  }
-  code.inline{
-    background:var(--bg);
-    border:1px solid var(--line);
-    padding:1px 6px;
-    border-radius:3px;
-  }
-
-  footer{
-    padding:34px 0 60px;
-    color:var(--ink-dim);
-    font-size:.85rem;
-  }
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
@@ -179,33 +32,33 @@
       <div class="line-item">
         <h3>Design Computacional e Descrição Molecular de Fármacos em:</h3>
         <p>Doenças Neurodegenerativas e Proteínas Amiloidogênicas (Alzheimer e Parkinson).</p>
-		<p>Imunologia do Câncer (Checkpoints imunológicos).</p>
-		<p>Doenças Autoimunes.</p>
-		<p>Doenças Tropicais Negligenciadas.</p>
-		<p>Efeitos Estruturais/Energéticos de Modificações Pós-Traducionais em Alvos Farmacológicos de Interesse.</p>
+        <p>Imunologia do Câncer (Checkpoints imunológicos).</p>
+        <p>Doenças Autoimunes.</p>
+        <p>Doenças Tropicais Negligenciadas.</p>
+        <p>Efeitos Estruturais/Energéticos de Modificações Pós-Traducionais em Alvos Farmacológicos de Interesse.</p>
       </div>
       <div class="line-item">
         <h3>Modelagem Molecular de Transportadores e Proteínas Plasmáticas</h3>
         <p>Interação da Albumina Sérica Humana com diferentes compostos exógenos e endógenos.</p>
-		<p>Interação da Globulina Ligadora de Hormônios Sexuais com Hormônios.</p>
+        <p>Interação da Globulina Ligadora de Hormônios Sexuais com Hormônios.</p>
       </div>
       <div class="line-item">
         <h3>Farmacodinâmica de Proteínas/Receptores/Ligantes de Interesse</h3>
         <p>Modelagem de Receptores mu-Opioide no Contexto de Interação Com Fármacos Agonistas e Antagonistas.</p>
-		<p>Modelagem de Complexos envolvendo Receptores Dopaminérgicos D2/D3/D4 e Antipsicóticos.</p>
-		<p>Modelagem de Receptores Sensoriais (Quimioreceptores, Mecanoreceptores e Nociceptores).</p>
-		<p>Modelagem de Receptores Gabaérgicos.</p>
-		<p>Contaminantes Exógenos (derivados de plásticos de pesticidas) e Seus Efeitos Estruturais na Acetilcolinesterase e Albumina Sérica Humana.</p>
+        <p>Modelagem de Complexos envolvendo Receptores Dopaminérgicos D2/D3/D4 e Antipsicóticos.</p>
+        <p>Modelagem de Receptores Sensoriais (Quimioreceptores, Mecanoreceptores e Nociceptores).</p>
+        <p>Modelagem de Receptores Gabaérgicos.</p>
+        <p>Contaminantes Exógenos (derivados de plásticos de pesticidas) e Seus Efeitos Estruturais na Acetilcolinesterase e Albumina Sérica Humana.</p>
       </div>
-	  <div class="line-item">
+      <div class="line-item">
         <h3>Biologia da Reprodução e Criopreservação Seminal</h3>
         <p>Modelagem da PDC-109 e Seus Efeitos Estruturais Em Membranas Espermáticas.</p>
-		<p>Avaliação de Diferentes Composições de Albumina Sérica na Retirada de Colesterol no Contexto de Capacitação Espermática.</p>
+        <p>Avaliação de Diferentes Composições de Albumina Sérica na Retirada de Colesterol no Contexto de Capacitação Espermática.</p>
       </div>
       <div class="line-item">
         <h3>Biotecnologia Enzimática, Hidrólise de Biomassa e Aplicações Agroindustriais e Farmacológicas</h3>
         <p>Modelagem de Diferentes Tipos de Quitinases e Proposição de Mutações Com Vistas À Otimização e Aplicação.</p>
-		<p>Modelagem de De Enzimas com Potencial uso na Produção de Etanol Com Vistas À Otimização e Aplicação.</p>
+        <p>Modelagem de Enzimas com Potencial Uso na Produção de Etanol Com Vistas À Otimização e Aplicação.</p>
       </div>
     </div>
   </div>
@@ -221,61 +74,17 @@
 <section id="protocolos">
   <div class="wrap">
     <h2>Protocolos computacionais</h2>
-    <p class="protocol-intro">Guias internos de preparação e execução de fluxos computacionais usados pelo grupo.</p>
+    <p class="protocol-intro">Guias internos de preparação e execução de fluxos computacionais usados pelo grupo. Clique em um protocolo para abrir a página dedicada.</p>
 
-    <h3 style="margin-top:34px;font-size:1.15rem;">Preparação para docking molecular (AutoDock Vina)</h3>
-
-    <ol class="steps">
-      <li>
-        <h3>Obtenção e limpeza da estrutura (PDB)</h3>
-        <p>Baixar as coordenadas da proteína em formato legacy PDB a partir do Protein Data Bank.</p>
-        <ul>
-          <li>Abrir o arquivo em um editor de texto (ex: Notepad++) e verificar resíduos/átomos ausentes.</li>
-          <li>Se houver partes não resolvidas, modelar com SWISS-MODEL https://swissmodel.expasy.org/) ou ColabFold (https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb).</li>
-          <li>Remover ligantes, águas e demais moléculas do protocolo de cristalografia que não são de interesse (notepad++, Discovery Studio ou Pymol).</li>
-          <li>Usar a estrutura processada como entrada no ProteinPrepare -https://open.playmolecule.org/- (ou PDB2PQR -https://server.poissonboltzmann.org/pdb2pqr-) para avaliar estados de protonação (LYS, ARG, HIS, ASP, GLU, CYS) e adicionar hidrogênios faltantes.</li>
-        </ul>
-      </li>
-
-      <li>
-        <h3>Preparação no MGLTools (https://ccsb.scripps.edu/mgltools/downloads/)</h3>
-        <p><strong>Ligante</strong></p>
-        <ul>
-          <li><code class="inline">Read Molecule → Ligand → Input → Choose</code> (selecionar a molécula para o AutoDock)</li>
-          <li><code class="inline">Ligand → Torsion Tree → Detect Root</code></li>
-          <li><code class="inline">Ligand → Torsion Tree → Choose Torsion → Done</code></li>
-          <li><code class="inline">Ligand → Output → Save as PDBQT</code></li>
-        </ul>
-        <p><strong>Receptor</strong></p>
-        <ul>
-          <li>Deletar o ligante e abrir o receptor</li>
-          <li><code class="inline">Edit → Hydrogens → Add → Polar Only</code></li>
-          <li><code class="inline">Grid → Macromolecule → Choose</code> (selecionar e salvar)</li>
-          <li><code class="inline">Grid → Grid Box → Spacing = 1</code></li>
-        </ul>
-      </li>
-
-      <li>
-        <h3>Execução no AutoDock Vina (https://vina.scripps.edu/)</h3>
-        <p>Tamanho de célula de grade sempre em 1 Å.</p>
-        <pre>vina.exe --config conf.txt --log log.out
-
-vina_split.exe --input nome_arquivo_saida.pdbqt</pre>
-      </li>
-
-      <li>
-        <h3>Análise estrutural no PyMOL (https://www.pymol.org/)</h3>
-        <ul>
-          <li>Abrir o PDB do receptor no PyMOL</li>
-          <li>Abrir os ligantes gerados pelo <code class="inline">vina_split</code></li>
-        </ul>
-      </li>
-
-      <li>
-        <h3>Rescoring consenso(doi:10.1039/d1ra05785e, doi:10.1016/j.jmgm.2021.108023)</h3>
-        <p>Recomenda-se um rescoring consenso, comparando poses entre diferentes funções de scoring, para dar maior robustez à análise final.</p>
-      </li>
-    </ol>
+    <ul class="protocol-list">
+      <li><a href="protocolos/docking-vina.html"><span class="protocol-num">1</span><span class="protocol-title">Preparação de Estruturas + Docking Molecular — AutoDock Vina</span></a></li>
+      <li><a href="protocolos/md-proteina-agua.html"><span class="protocol-num">2</span><span class="protocol-title">GROMACS — Dinâmica Molecular de Proteína / Proteína::Proteína / Proteína::Peptídeo (Em água)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/md-proteina-ligante-agua.html"><span class="protocol-num">3</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína::Ligante (Em água)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/md-proteina-ligante-membrana.html"><span class="protocol-num">4</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína::Ligante (Em membrana)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/md-proteina-membrana.html"><span class="protocol-num">5</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína / Proteína::Proteína / Proteína::Peptídeo (Em membrana)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/mmpbsa-gbsa.html"><span class="protocol-num">6</span><span class="protocol-title">gmx_MMPBSA + GROMACS — MM/PBSA ou MM/GBSA</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/mfcc-dft.html"><span class="protocol-num">7</span><span class="protocol-title">Materials Studio (DMol3) — MFCC + DFT</span><span class="status-pill">em breve</span></a></li>
+    </ul>
   </div>
 </section>
 
