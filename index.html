@@ -177,20 +177,35 @@
     <h2>Linhas de pesquisa</h2>
     <div class="lines">
       <div class="line-item">
-        <h3>Dinâmica molecular</h3>
-        <p>Simulações all-atom e coarse-grained de proteínas, agregados e sistemas de membrana.</p>
+        <h3>Design Computacional e Descrição Molecular de Fármacos em:</h3>
+        <p>Doenças Neurodegenerativas e Proteínas Amiloidogênicas (Alzheimer e Parkinson).</p>
+		<p>Imunologia do Câncer (Checkpoints imunológicos).</p>
+		<p>Doenças Autoimunes.</p>
+		<p>Doenças Tropicais Negligenciadas.</p>
+		<p>Efeitos Estruturais/Energéticos de Modificações Pós-Traducionais em Alvos Farmacológicos de Interesse.</p>
       </div>
       <div class="line-item">
-        <h3>Docking e triagem molecular</h3>
-        <p>Predição de poses e rescoring consenso para avaliação de interações proteína–ligante.</p>
+        <h3>Modelagem Molecular de Transportadores e Proteínas Plasmáticas</h3>
+        <p>Interação da Albumina Sérica Humana com diferentes compostos exógenos e endógenos.</p>
+		<p>Interação da Globulina Ligadora de Hormônios Sexuais com Hormônios.</p>
       </div>
       <div class="line-item">
-        <h3>Métodos de fragmentação quântica</h3>
-        <p>MFCC/FMO e QM/MM aplicados a energias de interação em complexos biomoleculares.</p>
+        <h3>Farmacodinâmica de Proteínas/Receptores/Ligantes de Interesse</h3>
+        <p>Modelagem de Receptores mu-Opioide no Contexto de Interação Com Fármacos Agonistas e Antagonistas.</p>
+		<p>Modelagem de Complexos envolvendo Receptores Dopaminérgicos D2/D3/D4 e Antipsicóticos.</p>
+		<p>Modelagem de Receptores Sensoriais (Quimioreceptores, Mecanoreceptores e Nociceptores).</p>
+		<p>Modelagem de Receptores Gabaérgicos.</p>
+		<p>Contaminantes Exógenos (derivados de plásticos de pesticidas) e Seus Efeitos Estruturais na Acetilcolinesterase e Albumina Sérica Humana.</p>
+      </div>
+	  <div class="line-item">
+        <h3>Biologia da Reprodução e Criopreservação Seminal</h3>
+        <p>Modelagem da PDC-109 e Seus Efeitos Estruturais Em Membranas Espermáticas.</p>
+		<p>Avaliação de Diferentes Composições de Albumina Sérica na Retirada de Colesterol no Contexto de Capacitação Espermática.</p>
       </div>
       <div class="line-item">
-        <h3>Aprendizado de máquina em fármacos</h3>
-        <p>Modelos de ML integrados a dados de dinâmica molecular para apoio ao desenho de fármacos.</p>
+        <h3>Biotecnologia Enzimática, Hidrólise de Biomassa e Aplicações Agroindustriais e Farmacológicas</h3>
+        <p>Modelagem de Diferentes Tipos de Quitinases e Proposição de Mutações Com Vistas À Otimização e Aplicação.</p>
+		<p>Modelagem de De Enzimas com Potencial uso na Produção de Etanol Com Vistas À Otimização e Aplicação.</p>
       </div>
     </div>
   </div>
@@ -216,14 +231,14 @@
         <p>Baixar as coordenadas da proteína em formato legacy PDB a partir do Protein Data Bank.</p>
         <ul>
           <li>Abrir o arquivo em um editor de texto (ex: Notepad++) e verificar resíduos/átomos ausentes.</li>
-          <li>Se houver partes não resolvidas, modelar com SWISS-MODEL ou ColabFold.</li>
-          <li>Remover ligantes, águas e demais moléculas do protocolo de cristalografia que não são de interesse.</li>
-          <li>Usar a estrutura processada como entrada no ProteinPrepare (ou PDB2PQR) para avaliar estados de protonação (LYS, ARG, HIS, ASP, GLU, CYS) e adicionar hidrogênios faltantes.</li>
+          <li>Se houver partes não resolvidas, modelar com SWISS-MODEL https://swissmodel.expasy.org/) ou ColabFold (https://colab.research.google.com/github/sokrypton/ColabFold/blob/main/AlphaFold2.ipynb).</li>
+          <li>Remover ligantes, águas e demais moléculas do protocolo de cristalografia que não são de interesse (notepad++, Discovery Studio ou Pymol).</li>
+          <li>Usar a estrutura processada como entrada no ProteinPrepare -https://open.playmolecule.org/- (ou PDB2PQR -https://server.poissonboltzmann.org/pdb2pqr-) para avaliar estados de protonação (LYS, ARG, HIS, ASP, GLU, CYS) e adicionar hidrogênios faltantes.</li>
         </ul>
       </li>
 
       <li>
-        <h3>Preparação no MGLTools</h3>
+        <h3>Preparação no MGLTools (https://ccsb.scripps.edu/mgltools/downloads/)</h3>
         <p><strong>Ligante</strong></p>
         <ul>
           <li><code class="inline">Read Molecule → Ligand → Input → Choose</code> (selecionar a molécula para o AutoDock)</li>
@@ -241,7 +256,7 @@
       </li>
 
       <li>
-        <h3>Execução no AutoDock Vina</h3>
+        <h3>Execução no AutoDock Vina (https://vina.scripps.edu/)</h3>
         <p>Tamanho de célula de grade sempre em 1 Å.</p>
         <pre>vina.exe --config conf.txt --log log.out
 
@@ -249,7 +264,7 @@ vina_split.exe --input nome_arquivo_saida.pdbqt</pre>
       </li>
 
       <li>
-        <h3>Análise estrutural no PyMOL</h3>
+        <h3>Análise estrutural no PyMOL (https://www.pymol.org/)</h3>
         <ul>
           <li>Abrir o PDB do receptor no PyMOL</li>
           <li>Abrir os ligantes gerados pelo <code class="inline">vina_split</code></li>
@@ -257,7 +272,7 @@ vina_split.exe --input nome_arquivo_saida.pdbqt</pre>
       </li>
 
       <li>
-        <h3>Rescoring consenso</h3>
+        <h3>Rescoring consenso(doi:10.1039/d1ra05785e, doi:10.1016/j.jmgm.2021.108023)</h3>
         <p>Recomenda-se um rescoring consenso, comparando poses entre diferentes funções de scoring, para dar maior robustez à análise final.</p>
       </li>
     </ol>
