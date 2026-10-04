@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCTMBio — Laboratório de Ciência e Tecnologia de Materiais e Sistemas Biológicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0C1210;
+    --bg-panel: #121A17;
+    --ink: #E8E7E0;
+    --ink-dim: #9CAAA3;
+    --line: #26332E;
+    --accent: #C98A4B;
+    --accent-dim: #8A6336;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Spectral',serif;
+    font-weight:500;
+    margin:0 0 .4em;
+  }
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px;}
+
+  header.hero{
+    border-bottom:1px solid var(--line);
+    padding:72px 0 56px;
+  }
+  header.hero p.kicker{
+    color:var(--ink-dim);
+    margin:0 0 10px;
+    font-size:.95rem;
+  }
+  header.hero h1{
+    font-size:2.3rem;
+    max-width:14ch;
+  }
+  header.hero p.desc{
+    max-width:60ch;
+    color:var(--ink-dim);
+    font-size:1.05rem;
+    margin-top:14px;
+  }
+  nav{
+    margin-top:28px;
+    display:flex;
+    gap:22px;
+    flex-wrap:wrap;
+    font-size:.95rem;
+  }
+
+  section{
+    padding:56px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+  section h2{
+    font-size:1.5rem;
+    margin-bottom:26px;
+  }
+
+  .lines{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+  }
+  @media(max-width:600px){.lines{grid-template-columns:1fr;}}
+  .line-item{
+    border:1px solid var(--line);
+    background:var(--bg-panel);
+    padding:18px 20px;
+    border-radius:3px;
+  }
+  .line-item h3{font-size:1.05rem;color:var(--ink);}
+  .line-item p{margin:0;color:var(--ink-dim);font-size:.93rem;}
+
+  .pub-placeholder{
+    color:var(--ink-dim);
+    font-size:.95rem;
+    border:1px dashed var(--line);
+    padding:18px 20px;
+    border-radius:3px;
+  }
+
+  .protocol-intro{color:var(--ink-dim);max-width:65ch;}
+
+  ol.steps{
+    list-style:none;
+    counter-reset:step;
+    padding:0;
+    margin:30px 0 0;
+  }
+  ol.steps > li{
+    counter-increment:step;
+    position:relative;
+    padding:0 0 30px 48px;
+    border-left:1px solid var(--line);
+    margin-left:14px;
+  }
+  ol.steps > li:last-child{border-left:1px solid transparent;padding-bottom:0;}
+  ol.steps > li::before{
+    content:counter(step);
+    position:absolute;
+    left:-15px;
+    top:0;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:var(--bg);
+    border:1px solid var(--accent-dim);
+    color:var(--accent);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.85rem;
+    display:flex;align-items:center;justify-content:center;
+  }
+  ol.steps h3{font-size:1.05rem;margin-bottom:8px;}
+  ol.steps p{margin:0 0 8px;color:var(--ink-dim);font-size:.93rem;}
+  ol.steps ul{margin:8px 0;padding-left:20px;color:var(--ink-dim);font-size:.93rem;}
+  ol.steps ul li{margin-bottom:4px;}
+
+  code, pre{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.85rem;
+  }
+  pre{
+    background:var(--bg);
+    border:1px solid var(--line);
+    padding:12px 14px;
+    border-radius:3px;
+    overflow-x:auto;
+    color:var(--ink);
+  }
+  code.inline{
+    background:var(--bg);
+    border:1px solid var(--line);
+    padding:1px 6px;
+    border-radius:3px;
+  }
+
+  footer{
+    padding:34px 0 60px;
+    color:var(--ink-dim);
+    font-size:.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">UFC — Universidade Federal do Ceará</p>
+    <h1>LCTMBio</h1>
+    <p class="desc">Laboratório de Ciência e Tecnologia de Materiais e Sistemas Biológicos. Pesquisa computacional em biologia estrutural, materiais biológicos e descoberta de fármacos.</p>
+    <nav>
+      <a href="#linhas">Linhas de pesquisa</a>
+      <a href="#publicacoes">Publicações</a>
+      <a href="#protocolos">Protocolos computacionais</a>
+      <a href="https://github.com/lctmtutoriais-UFC">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<section id="linhas">
+  <div class="wrap">
+    <h2>Linhas de pesquisa</h2>
+    <div class="lines">
+      <div class="line-item">
+        <h3>Dinâmica molecular</h3>
+        <p>Simulações all-atom e coarse-grained de proteínas, agregados e sistemas de membrana.</p>
+      </div>
+      <div class="line-item">
+        <h3>Docking e triagem molecular</h3>
+        <p>Predição de poses e rescoring consenso para avaliação de interações proteína–ligante.</p>
+      </div>
+      <div class="line-item">
+        <h3>Métodos de fragmentação quântica</h3>
+        <p>MFCC/FMO e QM/MM aplicados a energias de interação em complexos biomoleculares.</p>
+      </div>
+      <div class="line-item">
+        <h3>Aprendizado de máquina em fármacos</h3>
+        <p>Modelos de ML integrados a dados de dinâmica molecular para apoio ao desenho de fármacos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publicacoes">
+  <div class="wrap">
+    <h2>Últimas publicações</h2>
+    <p class="pub-placeholder">Lista de publicações em construção — em breve.</p>
+  </div>
+</section>
+
+<section id="protocolos">
+  <div class="wrap">
+    <h2>Protocolos computacionais</h2>
+    <p class="protocol-intro">Guias internos de preparação e execução de fluxos computacionais usados pelo grupo.</p>
+
+    <h3 style="margin-top:34px;font-size:1.15rem;">Preparação para docking molecular (AutoDock Vina)</h3>
+
+    <ol class="steps">
+      <li>
+        <h3>Obtenção e limpeza da estrutura (PDB)</h3>
+        <p>Baixar as coordenadas da proteína em formato legacy PDB a partir do Protein Data Bank.</p>
+        <ul>
+          <li>Abrir o arquivo em um editor de texto (ex: Notepad++) e verificar resíduos/átomos ausentes.</li>
+          <li>Se houver partes não resolvidas, modelar com SWISS-MODEL ou ColabFold.</li>
+          <li>Remover ligantes, águas e demais moléculas do protocolo de cristalografia que não são de interesse.</li>
+          <li>Usar a estrutura processada como entrada no ProteinPrepare (ou PDB2PQR) para avaliar estados de protonação (LYS, ARG, HIS, ASP, GLU, CYS) e adicionar hidrogênios faltantes.</li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Preparação no MGLTools</h3>
+        <p><strong>Ligante</strong></p>
+        <ul>
+          <li><code class="inline">Read Molecule → Ligand → Input → Choose</code> (selecionar a molécula para o AutoDock)</li>
+          <li><code class="inline">Ligand → Torsion Tree → Detect Root</code></li>
+          <li><code class="inline">Ligand → Torsion Tree → Choose Torsion → Done</code></li>
+          <li><code class="inline">Ligand → Output → Save as PDBQT</code></li>
+        </ul>
+        <p><strong>Receptor</strong></p>
+        <ul>
+          <li>Deletar o ligante e abrir o receptor</li>
+          <li><code class="inline">Edit → Hydrogens → Add → Polar Only</code></li>
+          <li><code class="inline">Grid → Macromolecule → Choose</code> (selecionar e salvar)</li>
+          <li><code class="inline">Grid → Grid Box → Spacing = 1</code></li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Execução no AutoDock Vina</h3>
+        <p>Tamanho de célula de grade sempre em 1 Å.</p>
+        <pre>vina.exe --config conf.txt --log log.out
+
+vina_split.exe --input nome_arquivo_saida.pdbqt</pre>
+      </li>
+
+      <li>
+        <h3>Análise estrutural no PyMOL</h3>
+        <ul>
+          <li>Abrir o PDB do receptor no PyMOL</li>
+          <li>Abrir os ligantes gerados pelo <code class="inline">vina_split</code></li>
+        </ul>
+      </li>
+
+      <li>
+        <h3>Rescoring consenso</h3>
+        <p>Recomenda-se um rescoring consenso, comparando poses entre diferentes funções de scoring, para dar maior robustez à análise final.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © LCTMBio · UFC — <a href="https://github.com/lctmtutoriais-UFC">github.com/lctmtutoriais-UFC</a>
+  </div>
+</footer>
+
+</body>
+</html>
