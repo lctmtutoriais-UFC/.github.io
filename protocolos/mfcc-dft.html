@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
+<style>
+  .substeps { list-style: none; margin: .6rem 0 0; padding-left: 0; }
+  .substeps li { margin-bottom: .5rem; }
+</style>
 </head>
 <body>
 
@@ -20,7 +24,53 @@
 
 <section>
   <div class="wrap">
-    <p class="pub-placeholder">Protocolo em elaboração — conteúdo em breve.</p>
+
+    <h2>1. Preparar o arquivo .pdb no formato que o script reconhece</h2>
+    <ol class="steps">
+      <li>
+        <strong>Abrir o PDB no Discovery Studio.</strong>
+        <ul class="substeps">
+          <li>i) Nomear as cadeias de interesse que serão levadas para o MFCC-DFT. Ligante: usar <code>L</code>; água: usar <code>W</code>; cadeias proteicas podem assumir qualquer outra letra.</li>
+          <li>ii) Selecionar as cadeias de interesse (Proteína+Proteína ou Proteína+Ligante) e pressionar <code>CTRL + E</code>.</li>
+          <li>iii) Na janela que abrir, ir em <em>Scope</em> e definir <code>Residue</code>; em <em>Radius</em>, definir <code>5 Å</code>.</li>
+          <li>iv) Pressionar <code>CTRL + X</code>, <code>CTRL + A</code>, deletar tudo, <code>CTRL + C</code> e salvar como <code>MFCC.pdb</code>. Essa sequência seleciona, copia, cola e salva as cadeias de interesse com as águas até 5 Å delas, no formato .pdb.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>2. Levar o arquivo para o Materials Studio — etapa de fragmentação e DFT</h2>
+    <ol class="steps">
+      <li>
+        <strong>Abrir o Materials Studio e criar o projeto <code>.stp</code> no diretório desejado.</strong>
+        <ul class="substeps">
+          <li>i) Abrir os scripts <code>MFCC_PP_v3.pl</code> e <code>DmolRun_V2.pl</code> no projeto criado. Os scripts podem ser obtidos em <a href="https://github.com/lctmtutoriais-UFC/.github.io/tree/051d0c1ff92ef6a85038f823a9f6a5e8ff3a266d/Scripts_MFCC">github.com/lctmtutoriais-UFC/.github.io (Scripts_MFCC)</a>.</li>
+          <li>ii) Configurar as linhas 22–33 do <code>MFCC_PP_v3.pl</code>. Usualmente utilizamos águas explícitas até 2,5 Å dos contatos.</li>
+          <li>iii) Executar o script. Ao clicar pela primeira vez dentro do script, três ícones na parte superior do Materials se tornam clicáveis. Procurar o mais à esquerda (<em>Run on server</em>), clicar na seta para baixo ao lado dele e escolher <em>Script Job</em>. Na janela que aparecer, selecionar a máquina em que o cálculo de MFCC será executado. Dependendo do sistema pode ser bem rápido (proteína-ligante, por exemplo) ou demorar mais (interfaces proteicas muito extensas, por exemplo).</li>
+          <li>iv) Quando o <code>MFCC_PP_v3.pl</code> finalizar e os dados forem baixados, uma pasta com nome <code>MFCC...</code> aparecerá dentro do projeto. Nela haverá o script <code>DmolRun_V2.pl</code>: configurar as cadeias de interesse (as mesmas definidas em ii), ir em <em>Run on Server</em>, selecionar a máquina e executar.</li>
+          <li>v) Essa etapa demora mais, pois é quando os cálculos DFT entram em cena. Deixe rodando, salve o projeto, feche o Materials e faça outra coisa.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>3. Análise simplificada dos resultados</h2>
+    <ol class="steps">
+      <li>
+        <strong>Quando o cálculo finalizar, baixar os resultados</strong> (caso não sejam baixados automaticamente).
+        <ul class="substeps">
+          <li>i) Procurar o arquivo <code>Energy.std</code>.</li>
+          <li>ii) Selecionar toda a tabela clicando no canto superior esquerdo e copiar os dados.</li>
+          <li>iii) Levar os dados para um editor de planilhas (geralmente Excel ou Google Sheets).</li>
+          <li>iv) Analisar os resultados. Com esses dados já é possível fazer os dois gráficos principais utilizados pelo grupo: BIRD e Convergência.</li>
+          <li>
+            v) <strong>Convergência:</strong> são necessárias as colunas de distância (geralmente G) e de energia de interação (geralmente M). Copiá-las e colá-las em outra folha. Para o cálculo cumulativo de energia (resíduo-ligante ou resíduo-resíduo), copiar o primeiro valor de energia (B2, se os dados foram colados em A e B) para a célula à direita (C2) e, na célula abaixo (C3), usar a soma da célula da esquerda com a de cima:
+<pre>=B3+C2</pre>
+          </li>
+          <li>vi) <strong>BIRD:</strong> são necessárias as colunas dos resíduos (geralmente B ou E) e das energias (geralmente M).</li>
+          <li>vii) Levar os dados de v) e vi) para o Origin (ou outra ferramenta de plotagem).</li>
+        </ul>
+      </li>
+    </ol>
+
   </div>
 </section>
 
