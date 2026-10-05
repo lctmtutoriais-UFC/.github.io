@@ -3,74 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Materials Studio (DMol3) — MFCC + DFT — LCTMBio</title>
+<title>LCTMBio — Laboratório de Ciência e Tecnologia de Materiais e Sistemas Biológicos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/style.css">
-<style>
-  .substeps { list-style: none; margin: .6rem 0 0; padding-left: 0; }
-  .substeps li { margin-bottom: .5rem; }
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-<header class="page-header">
+<header class="hero">
   <div class="wrap">
-    <a class="back-link" href="../index.html#protocolos">← Voltar para protocolos</a>
-    <h1>Materials Studio (DMol3) — MFCC + DFT</h1>
+    <p class="kicker">UFC — Universidade Federal do Ceará</p>
+    <h1>LCTMBio</h1>
+    <p class="desc">Laboratório de Ciência e Tecnologia de Materiais e Sistemas Biológicos --Bloco 928/929 -Departamento de Física --. Pesquisa computacional em biologia estrutural, materiais biológicos e descoberta de fármacos.</p>
+    <p class="desc">Coordenador do Laboratório: <a href="http://lattes.cnpq.br/8647922327100953" target="_blank" rel="noopener">Valder Nogueira Freire</a></h3></p>
+    <nav>
+      <a href="#linhas">Linhas de pesquisa</a>
+      <a href="#publicacoes">Publicações</a>
+      <a href="#protocolos">Protocolos computacionais</a>
+      <a href="https://github.com/lctmtutoriais-UFC">GitHub</a>
+    </nav>
   </div>
 </header>
 
-<section>
+<section id="linhas">
   <div class="wrap">
+    <h2>Linhas de pesquisa</h2>
+    <div class="lines">
+      <div class="line-item">
+        <h3>Design Computacional e Descrição Molecular de Fármacos em:</h3>
+        <p>Doenças Neurodegenerativas e Proteínas Amiloidogênicas (Alzheimer e Parkinson).</p>
+        <p>Imunologia do Câncer (Checkpoints imunológicos).</p>
+        <p>Doenças Autoimunes.</p>
+        <p>Doenças Tropicais Negligenciadas.</p>
+        <p>Efeitos Estruturais/Energéticos de Modificações Pós-Traducionais em Alvos Farmacológicos de Interesse.</p>
+      </div>
+      <div class="line-item">
+        <h3>Modelagem Molecular de Transportadores e Proteínas Plasmáticas</h3>
+        <p>Interação da Albumina Sérica Humana com diferentes compostos exógenos e endógenos.</p>
+        <p>Interação da Globulina Ligadora de Hormônios Sexuais com Hormônios.</p>
+      </div>
+      <div class="line-item">
+        <h3>Farmacodinâmica de Proteínas/Receptores/Ligantes de Interesse</h3>
+        <p>Modelagem de Receptores mu-Opioide no Contexto de Interação Com Fármacos Agonistas e Antagonistas.</p>
+        <p>Modelagem de Complexos envolvendo Receptores Dopaminérgicos D2/D3/D4 e Antipsicóticos.</p>
+        <p>Modelagem de Receptores Sensoriais (Quimioreceptores, Mecanoreceptores e Nociceptores).</p>
+        <p>Modelagem de Receptores Gabaérgicos.</p>
+        <p>Contaminantes Exógenos (derivados de plásticos de pesticidas) e Seus Efeitos Estruturais na Acetilcolinesterase e Albumina Sérica Humana.</p>
+      </div>
+      <div class="line-item">
+        <h3>Biologia da Reprodução e Criopreservação Seminal</h3>
+        <p>Modelagem da PDC-109 e Seus Efeitos Estruturais Em Membranas Espermáticas.</p>
+        <p>Avaliação de Diferentes Composições de Albumina Sérica na Retirada de Colesterol no Contexto de Capacitação Espermática.</p>
+      </div>
+      <div class="line-item">
+        <h3>Biotecnologia Enzimática, Hidrólise de Biomassa e Aplicações Agroindustriais e Farmacológicas</h3>
+        <p>Modelagem de Diferentes Tipos de Quitinases e Proposição de Mutações Com Vistas À Otimização e Aplicação.</p>
+        <p>Modelagem de Enzimas com Potencial Uso na Produção de Etanol Com Vistas À Otimização e Aplicação.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <h2>1. Preparar o arquivo .pdb no formato que o script reconhece</h2>
-    <ol class="steps">
-      <li>
-        <strong>Abrir o PDB no Discovery Studio.</strong>
-        <ul class="substeps">
-          <li>i) Nomear as cadeias de interesse que serão levadas para o MFCC-DFT. Ligante: usar <code>L</code>; água: usar <code>W</code>; cadeias proteicas podem assumir qualquer outra letra.</li>
-          <li>ii) Selecionar as cadeias de interesse (Proteína+Proteína ou Proteína+Ligante) e pressionar <code>CTRL + E</code>.</li>
-          <li>iii) Na janela que abrir, ir em <em>Scope</em> e definir <code>Residue</code>; em <em>Radius</em>, definir <code>5 Å</code>.</li>
-          <li>iv) Pressionar <code>CTRL + X</code>, <code>CTRL + A</code>, deletar tudo, <code>CTRL + C</code> e salvar como <code>MFCC.pdb</code>. Essa sequência seleciona, copia, cola e salva as cadeias de interesse com as águas até 5 Å delas, no formato .pdb.</li>
-        </ul>
-      </li>
-    </ol>
+<section id="publicacoes">
+  <div class="wrap">
+    <h2>Últimas publicações</h2>
+    <p class="pub-placeholder">Lista de publicações em construção — em breve.</p>
+  </div>
+</section>
 
-    <h2>2. Levar o arquivo para o Materials Studio — etapa de fragmentação e DFT</h2>
-    <ol class="steps">
-      <li>
-        <strong>Abrir o Materials Studio e criar o projeto <code>.stp</code> no diretório desejado.</strong>
-        <ul class="substeps">
-          <li>i) Abrir os scripts <code>MFCC_PP_v3.pl</code> e <code>DmolRun_V2.pl</code> no projeto criado. Os scripts podem ser obtidos em <a href="https://github.com/lctmtutoriais-UFC/.github.io/tree/051d0c1ff92ef6a85038f823a9f6a5e8ff3a266d/Scripts_MFCC">github.com/lctmtutoriais-UFC/.github.io (Scripts_MFCC)</a>.</li>
-          <li>ii) Configurar as linhas 22–33 do <code>MFCC_PP_v3.pl</code>. Usualmente utilizamos águas explícitas até 2,5 Å dos contatos.</li>
-          <li>iii) Executar o script. Ao clicar pela primeira vez dentro do script, três ícones na parte superior do Materials se tornam clicáveis. Procurar o mais à esquerda (<em>Run on server</em>), clicar na seta para baixo ao lado dele e escolher <em>Script Job</em>. Na janela que aparecer, selecionar a máquina em que o cálculo de MFCC será executado. Dependendo do sistema pode ser bem rápido (proteína-ligante, por exemplo) ou demorar mais (interfaces proteicas muito extensas, por exemplo).</li>
-          <li>iv) Quando o <code>MFCC_PP_v3.pl</code> finalizar e os dados forem baixados, uma pasta com nome <code>MFCC...</code> aparecerá dentro do projeto. Nela haverá o script <code>DmolRun_V2.pl</code>: configurar as cadeias de interesse (as mesmas definidas em ii), ir em <em>Run on Server</em>, selecionar a máquina e executar.</li>
-          <li>v) Essa etapa demora mais, pois é quando os cálculos DFT entram em cena. Deixe rodando, salve o projeto, feche o Materials e faça outra coisa.</li>
-        </ul>
-      </li>
-    </ol>
+<section id="protocolos">
+  <div class="wrap">
+    <h2>Protocolos computacionais</h2>
+    <p class="protocol-intro">Guias internos de preparação e execução de fluxos computacionais usados pelo grupo. Clique em um protocolo para abrir a página dedicada.</p>
 
-    <h2>3. Análise simplificada dos resultados</h2>
-    <ol class="steps">
-      <li>
-        <strong>Quando o cálculo finalizar, baixar os resultados</strong> (caso não sejam baixados automaticamente).
-        <ul class="substeps">
-          <li>i) Procurar o arquivo <code>Energy.std</code>.</li>
-          <li>ii) Selecionar toda a tabela clicando no canto superior esquerdo e copiar os dados.</li>
-          <li>iii) Levar os dados para um editor de planilhas (geralmente Excel ou Google Sheets).</li>
-          <li>iv) Analisar os resultados. Com esses dados já é possível fazer os dois gráficos principais utilizados pelo grupo: BIRD e Convergência.</li>
-          <li>
-            v) <strong>Convergência:</strong> são necessárias as colunas de distância (geralmente G) e de energia de interação (geralmente M). Copiá-las e colá-las em outra folha. Para o cálculo cumulativo de energia (resíduo-ligante ou resíduo-resíduo), copiar o primeiro valor de energia (B2, se os dados foram colados em A e B) para a célula à direita (C2) e, na célula abaixo (C3), usar a soma da célula da esquerda com a de cima:
-<pre>=B3+C2</pre>
-          </li>
-          <li>vi) <strong>BIRD:</strong> são necessárias as colunas dos resíduos (geralmente B ou E) e das energias (geralmente M).</li>
-          <li>vii) Levar os dados de v) e vi) para o Origin (ou outra ferramenta de plotagem).</li>
-        </ul>
-      </li>
-    </ol>
-
+    <ul class="protocol-list">
+      <li><a href="protocolos/docking-vina.html"><span class="protocol-num">1</span><span class="protocol-title">Preparação de Estruturas + Docking Molecular — AutoDock Vina</span></a></li>
+      <li><a href="protocolos/md-proteina-agua.html"><span class="protocol-num">2</span><span class="protocol-title">GROMACS — Dinâmica Molecular de Proteína / Proteína::Proteína / Proteína::Peptídeo (Em água)</span></a></li>
+      <li><a href="protocolos/md-proteina-ligante-agua.html"><span class="protocol-num">3</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína::Ligante (Em água)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/md-proteina-ligante-membrana.html"><span class="protocol-num">4</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína::Ligante (Em membrana)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/md-proteina-membrana.html"><span class="protocol-num">5</span><span class="protocol-title">GROMACS — Dinâmica Molecular Proteína / Proteína::Proteína / Proteína::Peptídeo (Em membrana)</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/mmpbsa-gbsa.html"><span class="protocol-num">6</span><span class="protocol-title">gmx_MMPBSA + GROMACS — MM/PBSA ou MM/GBSA</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/mfcc-dft.html"><span class="protocol-num">7</span><span class="protocol-title">Materials Studio (DMol3) — MFCC + DFT</span><span class="status-pill">em breve</span></a></li>
+      <li><a href="protocolos/conf-representativas-EnGens.html"><span class="protocol-num">8</span><span class="protocol-title">EnGens via Docker</span><span class="status-pill">em breve</span></a></li>
+    </ul>
   </div>
 </section>
 
